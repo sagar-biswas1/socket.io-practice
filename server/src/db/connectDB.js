@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
-
+var colors = require('colors');
 const generateConnectionString = () => {
   let connectionUrl = process.env.DB_CONNECTION_URL;
 
@@ -13,10 +13,11 @@ const connectDB = async () => {
     autoIndex: false,
     dbName: process.env.DB_NAME,
   };
- 
+  
+
   await mongoose.connect(url, { dbName: process.env.DB_NAME });
 
-  console.log(`Connected to db`);
+  console.log(`Connected to db`.bgCyan);
 };
 
 
