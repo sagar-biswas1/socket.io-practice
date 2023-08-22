@@ -12,7 +12,7 @@ app.get('/health',(req,res)=>{
 
 app.use((err, _req, res, _next) => {
     // format error
-    console.log(err)
+    console.log(err.message.bgYellow)
     res.status(err.status || 500).json({
       message: err.message,
       errors: err.errors,
