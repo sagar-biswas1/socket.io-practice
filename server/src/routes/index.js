@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const chatControllers= require('../api/v1/chats')
-const userControllers= require('../api/v1/users')
+const authControllers= require('../api/v1/authentication')
 
 router
 .route("/api/v1/chat")
@@ -21,12 +21,12 @@ router
 
 router
 .route("/api/v1/user/register")
-.post(userControllers.registerUser)
+.post(authControllers.registerUser)
 
 
 
 router
 .route("/api/v1/user/login")
-.get((req,res)=>{})
+.post(authControllers.authUser)
 
 module.exports = router
