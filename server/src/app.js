@@ -10,6 +10,12 @@ app.get('/health',(req,res)=>{
     return res.json({msg:"hello user"})
 })
 
+app.use(( req, res, next) => {
+ 
+  const err= new Error(`Error: Url not found ${req.url}`)
+  res.status(404)
+  next(err)
+})
 app.use((err, _req, res, _next) => {
     // format error
     console.log(err.message.bgYellow)
