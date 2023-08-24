@@ -7,10 +7,32 @@ const verifyJWT = require('../middleware/verifyJWT')
 
 router
 .route("/api/v1/chat")
-.post(verifyJWT )
-.get(verifyJWT , chatControllers.findAll)
-.patch((req,res)=>{})
-.delete((req,res)=>{})
+.post(verifyJWT,chatControllers.createOrAccessChat )
+.get(verifyJWT , chatControllers.fetchChat)
+
+
+// router
+// .route("/api/v1/group")
+// .post(verifyJWT,chatControllers.createGroupChat )
+
+
+// router
+// .route("/api/v1/rename")
+// .post(verifyJWT,chatControllers.renameGroupChat )
+
+
+// router
+// .route("/api/v1/removeGroup")
+// .post(verifyJWT,chatControllers.removeFromGroupChat )
+
+
+// router
+// .route("/api/v1/addToGroup")
+// .post(verifyJWT,chatControllers.addToGroupChat )
+
+
+
+
 
 
 

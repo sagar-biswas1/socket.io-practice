@@ -12,16 +12,16 @@ const chatModel= new Schema({
         default:false
     },
     users:[{
-        type:mongoose.Schema.type.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:"User"
 
     }],
     latestMessage:{
-        type:mongoose.Schema.type.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:'Message'
     },
     groupAdmin:{
-        type:mongoose.Schema.type.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     }
 },{
