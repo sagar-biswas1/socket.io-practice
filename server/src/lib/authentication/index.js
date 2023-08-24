@@ -35,7 +35,7 @@ const getUser = async function({email,password}){
 if(userExist && await userExist.matchPassword(password)){
     const token= generateToken(userExist._id)
     const data= {...userExist._doc,token}
-    console.log(data.password)
+  
     delete data.password
     return data
 }else{

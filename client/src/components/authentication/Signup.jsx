@@ -2,21 +2,58 @@ import {
   Button,
   FormControl,
   FormLabel,
+  Heading,
+  Highlight,
   Input,
   VStack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-
+import { useNavigate } from 'react-router-dom';
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [pic, setPic] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate= useNavigate()
   const submitHandler = () => {
-    console.log("hello");
+    try {
+      const config = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          pic,
+        }),
+      };
+      fetch("http://localhost:4000/api/v1/user/register", config)
+        .then((res) => res.json())
+        .then((data) => {
+          
+          if (data?.data?.token) {
+            localStorage.setItem("user_data", JSON.stringify(data.data))
+            setSuccessMessage("User registered");
+            navigate('/chats')
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <VStack spacing="5px" color="black">
+      {successMessage && (
+       
+       <Highlight
+         query={successMessage}
+         styles={{ px: '2', py: '1', rounded: 'full', bg: 'teal.200' }}
+       >
+       {successMessage}
+       </Highlight>
+    
+      )}
       <FormControl id="first-name" isRequired>
         <FormLabel>Name</FormLabel>
         <Input
