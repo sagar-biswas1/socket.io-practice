@@ -11,9 +11,9 @@ router
 .get(verifyJWT , chatControllers.fetchChat)
 
 
-// router
-// .route("/api/v1/group")
-// .post(verifyJWT,chatControllers.createGroupChat )
+router
+.route("/api/v1/group")
+.post(verifyJWT,chatControllers.createGroupChat )
 
 
 // router

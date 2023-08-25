@@ -45,22 +45,44 @@ const accessChat = async ({ userId, participantId }) => {
   return fullChat;
 };
 
-const fetchAllChats = async ({userId})=>{
- let allChats = await Chat.find({ users: { $elemMatch: { $eq: userId } } })
- .populate("users", "-password")
- .populate("groupAdmin", "-password")
- .populate("latestMessage")
-//  .populate("latestMessage.sender", "name pic email")
- .sort({updatedAt:-1})
+const fetchAllChats = async ({ userId }) => {
+  let allChats = await Chat.find({ users: { $elemMatch: { $eq: userId } } })
+    .populate("users", "-password")
+    .populate("groupAdmin", "-password")
+    .populate("latestMessage")
+    //  .populate("latestMessage.sender", "name pic email")
+    .sort({ updatedAt: -1 });
 
- allChats = await User.populate(allChats, {
+  allChats = await User.populate(allChats, {
     path: "latestMessage.sender",
     select: "name pic email",
   });
- return allChats
-}
+  return allChats;
+};
+
+const activateGroupChat = async (users = [], chatName, groupAdmin) => {
+  if (users.length < 2 || !chatName || !groupAdmin) {
+    throw new Error(
+      "at least two users must be specified and a chat name is required"
+    );
+  }
+
+  const groupChat = await Chat.create({
+    chatName,
+    users: users,
+    isGroupChat: true,
+    groupAdmin,
+  });
+
+  const fullGroupChat = await Chat.findOne({ _id: groupChat._id })
+    .populate("users", "-password")
+    .populate("groupAdmin", "-password");
+
+  return fullGroupChat;
+};
 
 module.exports = {
   accessChat,
-  fetchAllChats
+  fetchAllChats,
+  activateGroupChat,
 };
