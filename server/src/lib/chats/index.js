@@ -81,8 +81,60 @@ const activateGroupChat = async (users = [], chatName, groupAdmin) => {
   return fullGroupChat;
 };
 
+const renameGroup = async (chatId, chatName) => {
+  const updatedChat = await Chat.findByIdAndUpdate(
+    { _id: chatId },
+    {
+      chatName: chatName,
+    },
+    {
+      new: true,
+    }
+  )
+    .populate("users", "-password")
+    .populate("groupAdmin", "-password");
+  return updatedChat;
+};
+
+const addToGroup = async (chatId, userId) => {
+
+
+  // todo :need to check if a user is already in the group
+  const addedUser = await Chat.findByIdAndUpdate(
+    chatId,
+    {
+      $push: { users: userId },
+    },
+    {
+      new: true,
+    }
+  )
+    .populate("users", "-password")
+    .populate("groupAdmin", "-password");
+
+  return addedUser;
+};
+
+const removeFromGroup = async (chatId, userId) => {
+  const removeUser = await Chat.findByIdAndUpdate(
+    chatId,
+    {
+      $pull: { users: userId },
+    },
+    {
+      new: true,
+    }
+  )
+    .populate("users", "-password")
+    .populate("groupAdmin", "-password");
+
+  return removeUser;
+};
 module.exports = {
   accessChat,
   fetchAllChats,
   activateGroupChat,
+  renameGroup,
+  addToGroup,
+  removeFromGroup
 };

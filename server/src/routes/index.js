@@ -16,19 +16,19 @@ router
 .post(verifyJWT,chatControllers.createGroupChat )
 
 
-// router
-// .route("/api/v1/rename")
-// .post(verifyJWT,chatControllers.renameGroupChat )
+router
+.route("/api/v1/rename")
+.put(verifyJWT,chatControllers.renameGroupChat )
 
 
-// router
-// .route("/api/v1/removeGroup")
-// .post(verifyJWT,chatControllers.removeFromGroupChat )
+router
+.route("/api/v1/removeFromGroup")
+.put(verifyJWT,chatControllers.removeFromGroupChat )
 
 
-// router
-// .route("/api/v1/addToGroup")
-// .post(verifyJWT,chatControllers.addToGroupChat )
+router
+.route("/api/v1/addToGroup")
+.put(verifyJWT,chatControllers.addToGroupChat )
 
 
 
