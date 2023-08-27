@@ -175,8 +175,8 @@ function SideDrawer() {
               <Avatar
                 size="sm"
                 cursor="pointer"
-                name={user.name}
-                src={user.pic}
+                name={user?.name}
+                src={user?.pic}
               />
             </MenuButton>
             <MenuList>
