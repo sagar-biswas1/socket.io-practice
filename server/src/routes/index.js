@@ -2,6 +2,7 @@ const router = require('express').Router()
 const chatControllers= require('../api/v1/chats')
 const authControllers= require('../api/v1/authentication')
 const userControllers= require('../api/v1/users')
+const messageControllers= require('../api/v1/messages')
 const verifyJWT = require('../middleware/verifyJWT')
 
 
@@ -29,6 +30,18 @@ router
 router
 .route("/api/v1/addToGroup")
 .put(verifyJWT,chatControllers.addToGroupChat )
+
+
+
+
+router
+.route("/api/v1/message")
+.put(verifyJWT,messageControllers.createMessage )
+
+
+// router
+// .route("/api/v1/message/:id")
+// .put(verifyJWT,messageControllers.findMessages )
 
 
 
